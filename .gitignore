@@ -39,3 +39,6 @@
 
 redis/sample
 ycsbc
+
+.vscode
+*.o

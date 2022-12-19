@@ -32,16 +32,16 @@ class BasicDB : public DB {
            const std::vector<std::string> *fields,
            std::vector<KVPair> &result) {
     std::lock_guard<std::mutex> lock(mutex_);
-    cout << "READ " << table << ' ' << key;
-    if (fields) {
-      cout << " [ ";
-      for (auto f : *fields) {
-        cout << f << ' ';
-      }
-      cout << ']' << endl;
-    } else {
-      cout  << " < all fields >" << endl;
-    }
+    // cout << "READ " << table << ' ' << key;
+    // if (fields) {
+    //   cout << " [ ";
+    //   for (auto f : *fields) {
+    //     cout << f << ' ';
+    //   }
+    //   cout << ']' << endl;
+    // } else {
+    //   cout  << " < all fields >" << endl;
+    // }
     return 0;
   }
 
@@ -65,22 +65,22 @@ class BasicDB : public DB {
   int Update(const std::string &table, const std::string &key,
              std::vector<KVPair> &values) {
     std::lock_guard<std::mutex> lock(mutex_);
-    cout << "UPDATE " << table << ' ' << key << " [ ";
-    for (auto v : values) {
-      cout << v.first << '=' << v.second << ' ';
-    }
-    cout << ']' << endl;
+    // cout << "UPDATE " << table << ' ' << key << " [ ";
+    // for (auto v : values) {
+    //   cout << v.first << '=' << v.second << ' ';
+    // }
+    // cout << ']' << endl;
     return 0;
   }
 
   int Insert(const std::string &table, const std::string &key,
              std::vector<KVPair> &values) {
     std::lock_guard<std::mutex> lock(mutex_);
-    cout << "INSERT " << table << ' ' << key << " [ ";
-    for (auto v : values) {
-      cout << v.first << '=' << v.second << ' ';
-    }
-    cout << ']' << endl;
+    // cout << "INSERT " << table << ' ' << key << " [ ";
+    // for (auto v : values) {
+    //   cout << v.first << '=' << v.second << ' ';
+    // }
+    // cout << ']' << endl;
     return 0;
   }
 
