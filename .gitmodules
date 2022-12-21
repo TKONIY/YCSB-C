@@ -1,0 +1,3 @@
+[submodule "db/GPU-Merkle-Patricia-Trie"]
+	path = db/GPU-Merkle-Patricia-Trie
+	url = git@github.com:TKONIY/GPU-Merkle-Patricia-Trie.git
