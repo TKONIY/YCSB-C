@@ -42,3 +42,4 @@ ycsbc
 
 .vscode
 *.o
+*build

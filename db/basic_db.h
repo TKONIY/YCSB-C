@@ -11,10 +11,10 @@
 
 #include "core/db.h"
 
-#include <iostream>
-#include <string>
-#include <mutex>
 #include "core/properties.h"
+#include <iostream>
+#include <mutex>
+#include <string>
 
 using std::cout;
 using std::endl;
@@ -22,7 +22,7 @@ using std::endl;
 namespace ycsbc {
 
 class BasicDB : public DB {
- public:
+public:
   void Init() {
     std::lock_guard<std::mutex> lock(mutex_);
     // cout << "A new thread begins working." << endl;
@@ -32,21 +32,12 @@ class BasicDB : public DB {
            const std::vector<std::string> *fields,
            std::vector<KVPair> &result) {
     std::lock_guard<std::mutex> lock(mutex_);
-    cout << "READ " << table << ' ' << key;
-    if (fields) {
-      cout << " [ ";
-      for (auto f : *fields) {
-        cout << f << ' ';
-      }
-      cout << ']' << endl;
-    } else {
-      cout  << " < all fields >" << endl;
-    }
+    cout << "READ " << key << endl;
     return 0;
   }
 
-  int Scan(const std::string &table, const std::string &key,
-           int len, const std::vector<std::string> *fields,
+  int Scan(const std::string &table, const std::string &key, int len,
+           const std::vector<std::string> *fields,
            std::vector<std::vector<KVPair>> &result) {
     std::lock_guard<std::mutex> lock(mutex_);
     cout << "SCAN " << table << ' ' << key << " " << len;
@@ -57,7 +48,7 @@ class BasicDB : public DB {
       }
       cout << ']' << endl;
     } else {
-      cout  << " < all fields >" << endl;
+      cout << " < all fields >" << endl;
     }
     return 0;
   }
@@ -76,7 +67,7 @@ class BasicDB : public DB {
   int Insert(const std::string &table, const std::string &key,
              std::vector<KVPair> &values) {
     std::lock_guard<std::mutex> lock(mutex_);
-    cout << "INSERT " << table << ' ' << key << " [ ";
+    cout << "INSERT " << key << " [ ";
     for (auto v : values) {
       cout << v.first << '=' << v.second << ' ';
     }
@@ -87,14 +78,13 @@ class BasicDB : public DB {
   int Delete(const std::string &table, const std::string &key) {
     std::lock_guard<std::mutex> lock(mutex_);
     cout << "DELETE " << table << ' ' << key << endl;
-    return 0; 
+    return 0;
   }
 
- private:
+private:
   std::mutex mutex_;
 };
 
-} // ycsbc
+} // namespace ycsbc
 
 #endif // YCSB_C_BASIC_DB_H_
-
