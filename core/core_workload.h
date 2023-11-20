@@ -141,6 +141,13 @@ class CoreWorkload {
   static const std::string OPERATION_COUNT_PROPERTY;
 
   ///
+  /// The name of the property for the zipfian constant.
+  ///
+
+  static const std::string ZIPFAN_COEFFICIENT_PROPERTY;
+  static const std::string ZIPFAN_COEFFICIENT_DEFAULT;
+
+  ///
   /// Initialize the scenario.
   /// Called once, in the main client thread, before any operations are started.
   ///
@@ -192,6 +199,7 @@ class CoreWorkload {
   bool ordered_inserts_;
   size_t record_count_;
   int zero_padding_;
+  float zipf_ef_;
 };
 
 inline std::string CoreWorkload::NextSequenceKey() {

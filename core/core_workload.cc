@@ -76,6 +76,9 @@ const string CoreWorkload::INSERT_START_DEFAULT = "0";
 const string CoreWorkload::RECORD_COUNT_PROPERTY = "recordcount";
 const string CoreWorkload::OPERATION_COUNT_PROPERTY = "operationcount";
 
+const string CoreWorkload::ZIPFAN_COEFFICIENT_PROPERTY = "zipfiancoefficient";
+const string CoreWorkload::ZIPFAN_COEFFICIENT_DEFAULT = "0.99";
+
 void CoreWorkload::Init(const utils::Properties &p) {
   table_name_ = p.GetProperty(TABLENAME_PROPERTY,TABLENAME_DEFAULT);
   
@@ -109,6 +112,9 @@ void CoreWorkload::Init(const utils::Properties &p) {
                                                     READ_ALL_FIELDS_DEFAULT));
   write_all_fields_ = utils::StrToBool(p.GetProperty(WRITE_ALL_FIELDS_PROPERTY,
                                                      WRITE_ALL_FIELDS_DEFAULT));
+  //transform string to float
+  zipf_ef_ = std::stof(p.GetProperty(ZIPFAN_COEFFICIENT_PROPERTY,
+                                            ZIPFAN_COEFFICIENT_DEFAULT));
   
   if (p.GetProperty(INSERT_ORDER_PROPERTY, INSERT_ORDER_DEFAULT) == "hashed") {
     ordered_inserts_ = false;
@@ -147,7 +153,7 @@ void CoreWorkload::Init(const utils::Properties &p) {
     // and pick another key.
     int op_count = std::stoi(p.GetProperty(OPERATION_COUNT_PROPERTY));
     int new_keys = (int)(op_count * insert_proportion * 2); // a fudge factor
-    key_chooser_ = new ScrambledZipfianGenerator(record_count_ + new_keys);
+    key_chooser_ = new ScrambledZipfianGenerator(record_count_ + new_keys, zipf_ef_);
     
   } else if (request_dist == "latest") {
     key_chooser_ = new SkewedLatestGenerator(insert_key_sequence_);
@@ -161,7 +167,7 @@ void CoreWorkload::Init(const utils::Properties &p) {
   if (scan_len_dist == "uniform") {
     scan_len_chooser_ = new UniformGenerator(1, max_scan_len);
   } else if (scan_len_dist == "zipfian") {
-    scan_len_chooser_ = new ZipfianGenerator(1, max_scan_len);
+    scan_len_chooser_ = new ZipfianGenerator(1, max_scan_len, zipf_ef_);
   } else {
     throw utils::Exception("Distribution not allowed for scan length: " +
         scan_len_dist);
