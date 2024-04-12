@@ -1,7 +1,7 @@
 #pragma once
-#include "mpt/cpu_mpt.cuh"
-#include "mpt/node.cuh"
-#include "util/timer.cuh"
+// #include "mpt/cpu_mpt.cuh"
+// #include "mpt/node.cuh"
+// #include "util/timer.cuh"
 #include <iostream>
 #include <mutex>
 #include <random>
@@ -15,10 +15,10 @@ namespace ycsbc {
 
 class CmptDB : public DB {
 private:
-  CpuMPT::Compress::MPT *mpt{};
+  // CpuMPT::Compress::MPT *mpt{};
 
 public:
-  void Init() { mpt = new CpuMPT::Compress::MPT; }
+  // void Init() { mpt = new CpuMPT::Compress::MPT; }
 
   int Read(const std::string &table, const std::string &key,
            const std::vector<std::string> *fields,

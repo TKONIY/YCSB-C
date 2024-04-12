@@ -61,6 +61,11 @@ public:
     //   cout << v.first << '=' << v.second << ' ';
     // }
     // cout << ']' << endl;
+    cout << "UPDATE " << key << " [ ";
+    for (auto v : values) {
+      cout << v.first << '=' << v.second << ' ';
+    }
+    cout << ']' << endl;
     return 0;
   }
 

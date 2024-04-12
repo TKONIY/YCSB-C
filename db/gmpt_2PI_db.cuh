@@ -1,7 +1,7 @@
 #pragma once
-#include "mpt/gpu_mpt.cuh"
-#include "mpt/node.cuh"
-#include "util/timer.cuh"
+// #include "mpt/gpu_mpt.cuh"
+// #include "mpt/node.cuh"
+// #include "util/timer.cuh"
 #include <iostream>
 #include <mutex>
 #include <random>
@@ -16,10 +16,10 @@ namespace ycsbc {
 
 class Gmpt2piDB : public DB {
 private:
-  GpuMPT::Compress::MPT *mpt{};
+  // GpuMPT::Compress::MPT *mpt{};
 
 public:
-  void Init() { mpt = new GpuMPT::Compress::MPT; }
+  // void Init() { mpt = new GpuMPT::Compress::MPT; }
 
   int Read(const std::string &table, const std::string &key,
            const std::vector<std::string> *fields,
